@@ -41,13 +41,21 @@
         function_layer { // Layer 1
             display-name = "Function";
             bindings = <
-                &tog 1 &trans &trans &trans &trans &trans &trans &trans &trans     &kp SLCK   &kp KP_NUM &kp PAUSE_BREAK &trans &kp PSCRN &kp C_BRI_UP &kp C_BRI_DN &studio_unlock
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &kp SLCK   &kp KP_NUM &kp PAUSE_BREAK &trans &kp PSCRN &kp C_BRI_UP &kp C_BRI_DN &studio_unlock
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans          &trans &trans
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans          &trans &trans
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans          &trans
                 &trans &trans &trans &trans &trans &trans &trans &trans &trans     &kp C_STOP &trans         
                                                                         &kp C_PREV &kp C_PP   &kp C_NEXT
             >;
+        };
+
+        extra1 {
+            status = "reserved";
+        };
+
+        extra2 {
+            status = "reserved";
         };
     };
  };
