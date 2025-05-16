@@ -1,7 +1,10 @@
-if SHIELD_TPL412
+if SHIELD_TP_L412
 
 # Name must be less than 16 characters long!
 config ZMK_KEYBOARD_NAME
-    default "tpl412"
+    default "TP L412"
+
+config SPI
+	default y
 
 endif
