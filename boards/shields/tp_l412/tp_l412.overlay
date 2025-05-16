@@ -14,7 +14,7 @@
     kscan0: kscan {
         compatible = "zmk,kscan-composite";
         rows = <9>;
-        cols = <16>;
+        columns = <16>;
 
         matrix {
             kscan = <&kscan1>;
