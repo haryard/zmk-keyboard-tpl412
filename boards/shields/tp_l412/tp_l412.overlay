@@ -10,8 +10,24 @@
     chosen {
         zmk,physical-layout = &layout_0;
     };
-    
+
     kscan0: kscan {
+        compatible = "zmk,kscan-composite";
+        rows = <9>;
+        cols = <16>;
+
+        matrix {
+            kscan = <&kscan1>;
+        };
+
+        direct {
+            kscan = <&kscan2>;
+            row-offset = <8>;
+        };
+
+    }
+    
+    kscan1: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
         wakeup-source;
@@ -44,6 +60,16 @@
             , <&pro_micro 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&pro_micro 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&pro_micro 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+    };
+
+    kscan2: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        input-gpios
+            = <&gpio1 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&gpio1 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&gpio1 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
     };
 
