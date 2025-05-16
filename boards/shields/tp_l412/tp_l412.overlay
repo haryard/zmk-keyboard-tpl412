@@ -1,14 +1,9 @@
 #include "tp_l412-layouts.dtsi"
 
 / {
-    layout_0: layout_0 {
-        compatible = "zmk,physical-layout";
-        display-name = "Layout 0";
-        kscan = <&kscan0>;
-    };
-
     chosen {
-        zmk,physical-layout = &layout_0;
+        zmk,kscan = &kscan0;
+        zmk,physical-layout = &tp_l412_layout;
     };
 
     kscan0: kscan {
@@ -78,18 +73,20 @@
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels =   <NRF_PSEL( SPIM_SCK, 0, 17)> 
-                    , <NRF_PSEL(SPIM_MOSI, 0, 22)>
-                    , <NRF_PSEL(SPIM_MISO, 0, 20)>
-                    ;
+            psels 
+                = <NRF_PSEL( SPIM_SCK, 0, 17)> 
+                , <NRF_PSEL(SPIM_MOSI, 0, 22)>
+                , <NRF_PSEL(SPIM_MISO, 0, 20)>
+                ;
         };
     };
     spi0_sleep: spi0_sleep {
         group1 {
-            psels =   <NRF_PSEL( SPIM_SCK, 0, 17)> 
-                    , <NRF_PSEL(SPIM_MOSI, 0, 22)>
-                    , <NRF_PSEL(SPIM_MISO, 0, 20)>
-                    ;
+            psels 
+                = <NRF_PSEL( SPIM_SCK, 0, 17)> 
+                , <NRF_PSEL(SPIM_MOSI, 0, 22)>
+                , <NRF_PSEL(SPIM_MISO, 0, 20)>
+                ;
             low-power-enable;
         };
     };
@@ -107,7 +104,7 @@ board_spi: &spi0 {
     compatible = "zmk,gpio-595";
     status = "okay";
     gpio-controller;
-    spi-max-frequency = <2000000>;
+    spi-max-frequency = <4000000>;
     #gpio-cells = <2>;
     reg = <0>;
     ngpios = <16>;
