@@ -5,7 +5,7 @@
         compatible = "zmk,physical-layout";
         display-name = "Layout 0";
         kscan = <&kscan0>;
-    }
+    };
 
     chosen {
         zmk,physical-layout = &layout_0;
