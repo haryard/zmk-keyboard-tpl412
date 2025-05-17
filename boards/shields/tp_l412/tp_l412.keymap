@@ -2,21 +2,56 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
+#define HAS_MOUSE_KEYS
+#define HAS_MOUSE_TP
+
+#define BASE 0
+#define FN 1
+#define MOUSE_TP 2
+#define MOUSE_TP_SET 3
+
+#ifdef HAS_MOUSE_TP
+  // We store the trackpoint settings in a separate file
+  // to make organization a little easier.
+  #include "include/mouse_tp.dtsi"
+#endif  // HAS_MOUSE_TP
+
+// Adjust layer keys based on enabled features.
+//
+// This prevents build errors when we build the firmware
+// without the mouse keys PR or the TP module.
+#ifdef HAS_MOUSE_TP
+  #define U_TOG_TP_SET &tog MOUSE_TP_SET
+#else
+  #define U_TOG_TP_SET &none
+#endif  // HAS_MOUSE_TP
+
 / {
+    behaviors {
+        mlt: middle_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <250>;
+            bindings = <&mo>, <&mkp>;
+            display-name = "Middle-Layer-Tap";
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
-// --------------------------------------------------------------------------------------------------
-// |  ESC  | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10 | F11 | F12 | INS | DEL | HOME | END  |
-// |   `   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |     BKSP       |
-// |  TAB     |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |     \       |
-// |  LCTRL    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |      ENTER       |
-// |  SHIFT       |  Z  |  X  |  C  |  V   |  B  |  N  |  M  |  ,  |  .  |  /  |        RSHFT       |
-// | FN | LCTRL | LGUI | LALT |             SPACE            | RALT | FN | RCTRL | PGUP | UP | PGDN |
-// ------------------------------------------------------------------------------| LEFT | DN | RGHT |
-// --------------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------
+        // |  ESC  | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10 | F11 | F12 | INS | DEL | HOME | END  |
+        // |   `   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |     BKSP       |
+        // |  TAB     |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |     \       |
+        // |  LCTRL    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |      ENTER       |
+        // |  SHIFT       |  Z  |  X  |  C  |  V   |  B  |  N  |  M  |  ,  |  .  |  /  |        RSHFT       |
+        // | FN | LCTRL | LGUI | LALT |             SPACE            | RALT | FN | RCTRL | PGUP | UP | PGDN |
+        // ---------------------------| MS_LEFT |  MS_MID | MS_RIGHT |-------------------| LEFT | DN | RGHT |
+        // --------------------------------------------------------------------------------------------------
 
-        default_layer { // Layer 0
+        default_layer { 
             display-name = "Base";
             bindings = <
                 &kp ESC   &kp F1    &kp F2   &kp F3   &kp F4    &kp F5 &kp F6 &kp F7 &kp F8    &kp F9  &kp F10   &kp F11   &kp F12   &kp INS  &kp DEL &kp HOME &kp END
@@ -25,32 +60,55 @@
                 &kp CAPS  &kp A     &kp S    &kp D    &kp F     &kp G  &kp H  &kp J  &kp K     &kp L   &kp SEMI  &kp SQT   &kp RET
                 &kp LSHFT &kp Z     &kp X    &kp C    &kp V     &kp B  &kp N  &kp M  &kp COMMA &kp DOT &kp SLASH &kp RSHFT 
                 &mo 1     &kp LCTRL &kp LGUI &kp LALT &kp SPACE                      &kp RALT  &kp K_APP   &kp RCTRL &kp PG_UP  &kp UP   &kp PG_DN
-                                                      &mkp LCLK &mkp MCLK &mkp RCLK                                  &kp LEFT   &kp DOWN  &kp RIGHT
+                                                      &mkp LCLK &mlt 1 MCLK &mkp RCLK                                  &kp LEFT   &kp DOWN  &kp RIGHT
             >;
         };
 
-// --------------------------------------------------------------------------------------------------
-// |  ESC  | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10 | F11 | F12 | INS | DEL | HOME | END  |
-// |   `   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |     BKSP       |
-// |  TAB     |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |     \       |
-// |  LCTRL    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |      ENTER       |
-// |  SHIFT       |  Z  |  X  |  C  |  V   |  B  |  N  |  M  |  ,  |  .  |  /  |        RSHFT       |
-// | FN | LCTRL | LGUI | LALT |             SPACE            | RALT | FN | RCTRL | PGUP | UP | PGDN |
-// ------------------------------------------------------------------------------| LEFT | DN | RGHT |
-// --------------------------------------------------------------------------------------------------
-
-        function_layer { // Layer 1
+        function_layer { 
             display-name = "Function";
             bindings = <
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &kp SLCK   &kp KP_NUM &kp PAUSE_BREAK &trans &kp PSCRN &kp C_BRI_UP &kp C_BRI_DN &studio_unlock
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans          &trans &trans
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans          &trans &trans
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans          &trans
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &trans     &trans     &trans
-                &trans &trans &trans &trans &trans &trans &trans &trans &trans     &kp C_STOP &trans         
-                                     &trans &trans &trans               &kp C_PREV &kp C_PP   &kp C_NEXT
+                &trans &trans &trans &trans    &trans &trans    &trans &trans &trans     &kp SLCK   &kp KP_NUM &kp PAUSE_BREAK &trans &kp PSCRN &kp C_BRI_UP &kp C_BRI_DN &studio_unlock
+                &trans &trans &trans &trans    &trans &trans    &trans &trans &trans     &trans     &trans     &trans          &trans &trans
+                &trans &trans &trans &trans    &trans &trans    &trans &trans &trans     &trans     &trans     &trans          &trans &trans
+                &trans &trans &trans &trans    &trans &trans    &trans &trans &trans     &trans     &trans     &trans          &trans
+                &trans &trans &trans &trans    &trans &trans    &trans &trans &trans     &trans     &trans     &trans
+                &trans &trans &trans &trans    &trans &trans    &trans &trans &trans     &kp C_STOP &trans         
+                                     &mkp LCLK &trans &mkp RCLK               &kp C_PREV &kp C_PP   &kp C_NEXT
             >;
         };
+
+        #ifdef HAS_MOUSE_TP
+
+        // Automatically activated when the mouse or trackpoint moves.
+        // Configured in `include/mouse_tp.dtsi`.
+        MouseTP_layer {
+            display-name = "TP";
+            bindings = <
+                &trans       &trans &trans &trans    &trans &trans    &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans       &trans &trans &trans    &trans &trans    &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans       &trans &trans &trans    &trans &trans    &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans       &trans &trans &trans    &trans &trans    &trans &trans &trans &trans &trans &trans &trans
+                &trans       &trans &trans &trans    &trans &trans    &trans &trans &trans &trans &trans &trans
+                U_TOG_TP_SET &trans &trans &trans    &trans &trans    &trans &trans &trans &trans &trans         
+                                           &mkp LCLK &trans &mkp RCLK               &trans &trans &trans
+            >;
+        };
+
+        // You can find the defines for the actual key press behaviors in `include/mouse_tp.dtsi`.
+        MouseSettings_layer {
+            display-name = "TP Set";
+            bindings = <
+                U_MSS_RESET  U_MSS_LOG &trans &trans    &trans &trans    &trans &trans &trans        &trans       &trans        &trans &trans &trans &trans U_MSS_TP_PT_I U_MSS_TP_PT_D
+                &trans       &trans    &trans &trans    &trans &trans    &trans &trans &trans        &trans       &trans        &trans &trans &trans
+                &trans       &trans    &trans &trans    &trans &trans    &trans &trans &trans        &trans       &trans        &trans &trans &trans
+                &trans       &trans    &trans &trans    &trans &trans    &trans &trans &trans        &trans       &trans        &trans &trans
+                &trans       &trans    &trans &trans    &trans &trans    &trans &trans &trans        &trans       &trans        &trans
+                U_TOG_TP_SET &trans    &trans &trans    &trans &trans    &trans &trans U_MSS_TP_V6_I U_MSS_TP_S_I U_MSS_TP_V6_D         
+                                              &mkp LCLK &trans &mkp RCLK               U_MSS_TP_NI_D U_MSS_TP_S_D U_MSS_TP_NI_I
+            >;
+        };
+
+        #endif // HAS_MOUSE_TP
 
         extra1 {
             status = "reserved";
