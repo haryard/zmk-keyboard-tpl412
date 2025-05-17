@@ -4,6 +4,9 @@ if SHIELD_TP_L412
 config ZMK_KEYBOARD_NAME
     default "TP L412"
 
+config ZMK_POINTING
+    default y
+
 config SPI
 	default y
 
