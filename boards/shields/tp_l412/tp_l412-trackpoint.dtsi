@@ -501,7 +501,6 @@
         device = <&mouse_ps2>;
         input-processors = 
               <&zip_xy_scaler 0 1>
-            , <&zip_temp_layer 2 250>
             ;
 
         scroller {
@@ -512,6 +511,10 @@
                 , <&zip_xy_scaler 1 8>
                 , <&zip_xy_to_scroll_mapper>
                 ;
+        };
+
+        mouse {
+            layers = <2>;
         };
 
 		// Some of the available settings depend on the keymap. So they
