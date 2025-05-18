@@ -154,7 +154,7 @@
 &trans        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans        &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 U_TOG_TP_SET  &trans  &trans  &trans  &trans                          &trans  &trans  &trans  &trans  &trans  &trans
-                                      &trans  &trans  &trans                                  &trans  &trans  &trans                                                                          ╰────────────────────────┴────────────────────────┴────────────────────────╯    ╰────────────────────────┴────────────────────────┴────────────────────────╯
+                                      &trans  &trans  &trans                                  &trans  &trans  &trans
             >;
         };
 
