@@ -1,3 +1,4 @@
+#include "tp_l412-matrix.dtsi"
 #include "tp_l412-layouts.dtsi"
 
 / {
@@ -5,7 +6,7 @@
         zmk,kscan = &kscan0;
         zmk,physical-layout = &tp_l412_layout;
     };
-
+    
     kscan0: kscan {
         compatible = "zmk,kscan-composite";
         rows = <9>;
@@ -67,7 +68,6 @@
             , <&gpio1 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
     };
-
 };
 
 &pinctrl {
