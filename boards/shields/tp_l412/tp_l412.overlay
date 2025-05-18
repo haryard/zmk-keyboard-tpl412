@@ -1,4 +1,5 @@
 #include "tp_l412-matrix.dtsi"
+#include "tp_l412-trackpoint.dtsi"
 // #include "tp_l412-layouts.dtsi"
 
 / {
