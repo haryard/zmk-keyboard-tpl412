@@ -6,6 +6,10 @@
         zmk,physical-layout = &tp_l412_layout;
     };
 
+    tp_l412_layout: tp_l412_layout {
+        transform = <&default_transform>;
+    };
+    
     kscan0: kscan {
         compatible = "zmk,kscan-composite";
         rows = <9>;
