@@ -1,14 +1,10 @@
-#include <dt-bindings/zmk/matrix_transform.h>
+#include "tp_l412-matrix.dtsi"
 #include "tp_l412-layouts.dtsi"
 
 / {
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &tp_l412_layout;
-    };
-
-    tp_l412_layout: tp_l412_layout {
-        transform = <&default_transform>;
     };
     
     kscan0: kscan {
@@ -71,31 +67,6 @@
             , <&gpio1 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             , <&gpio1 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
-    };
-
-    default_transform: matrix_transform {
-        compatible = "zmk,matrix-transform";
-        columns = <16>; 
-        rows = <9>; 
-        // --------------------------------------------------------------------------------------------------
-        // |  ESC  | F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10 | F11 | F12 | INS | DEL | HOME | END  |
-        // |   `   |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |     BKSP       |
-        // |  TAB     |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  |     \       |
-        // |  LCTRL    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |      ENTER       |
-        // |  SHIFT       |  Z  |  X  |  C  |  V   |  B  |  N  |  M  |  ,  |  .  |  /  |        RSHFT       |
-        // | FN | LCTRL | LGUI | LALT |             SPACE            | RALT | FN | RCTRL | PGUP | UP | PGDN |
-        // ---------------------------| MS_LEFT |  MS_MID | MS_RIGHT |-------------------| LEFT | DN | RGHT |
-        // --------------------------------------------------------------------------------------------------
-
-        map = <
-            RC(7,1)  RC(6,4) RC(6,3) RC(0,3) RC(7,3) RC(7,14) RC(7,8) RC(0,6) RC(6,6) RC(6,14) RC(4,14) RC(4,12) RC(4,11) RC(6,12) RC(4,13) RC(4,15) RC(6,15)
-            RC(6,1)     RC(4,1)  RC(4,4)  RC(4,3)  RC(4,5)  RC(6,5)  RC(6,2)  RC(4,2)  RC(4,8)  RC(4,6)  RC(4,7)  RC(6,7)  RC(6,8)          RC(0,14)
-            RC(0,1)       RC(5,1)  RC(5,4)  RC(5,3)  RC(5,5)  RC(0,5)  RC(0,2)  RC(5,2)  RC(5,8)  RC(5,6)  RC(5,7)  RC(0,7)  RC(0,8)     RC(3,14) 
-            RC(0,4)         RC(3,1)  RC(3,4)  RC(3,3)  RC(3,5)  RC(7,5)  RC(7,2)  RC(3,2)  RC(3,8)  RC(3,6)  RC(3,7)  RC(7,7)       RC(2,14) 
-            RC(0,0)            RC(2,1)  RC(2,4)  RC(2,3)  RC(2,5)  RC(1,5)  RC(1,2)  RC(2,2)  RC(2,8)  RC(2,6)  RC(1,7)             RC(2,0)
-            RC(3,13)  RC(6,9)  RC(0,11) RC(7,10)                   RC(1,14)                   RC(1,10) RC(3,15) RC(2,9)   RC(2,15)  RC(7,13)  RC(1,15)
-                                                 RC(8,0)           RC(8,1)           RC(8,2)                              RC(1,13)  RC(1,12)  RC(1,11)
-        >;
     };
 };
 
